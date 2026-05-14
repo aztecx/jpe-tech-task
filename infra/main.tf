@@ -22,7 +22,7 @@ resource "aws_security_group" "app_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]   #Are we inviting everyone into our place here? port 22 is for ssh so we can have a list of static IP addresses that only we can have to get to the dashboard
  }
 
   egress {
@@ -36,7 +36,7 @@ resource "aws_security_group" "app_sg" {
 
 resource "aws_instance" "app" {
   ami           = var.ami_id
-  instance_type = "t3.xlarge"
+  instance_type = "t3.micro"   #or maybe small as I am not sure the capacity of micro vs small or maybe go with t2?
 
   security_groups = [aws_security_group.app_sg.name]
 
@@ -54,7 +54,7 @@ EOF
 }
 
 resource "aws_ebs_volume" "app_data" {
-  availability_zone = "eu-west-2a"
+  availability_zone = "eu-west-2a"      #I am under the impression the n.virginia is usually cheaper
   size              = 100
 
   tags = {

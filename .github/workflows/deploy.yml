@@ -16,5 +16,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Testing dependencies
+        run: npm test                       #Maybe we can do something like try{} except{ rollback(); } kinda logic here?
+
       - name: Deploy application
         run: ./deploy.sh
